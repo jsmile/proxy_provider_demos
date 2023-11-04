@@ -1,6 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+/// ProxyProvider update
+///
+/// 어떤 위젯이 다른 class 에 의존하고 있을 때,
+///
+/// 1. ProxyProvider 위젯 사용
+/// 해당 class 를 사용할 수 있게
+/// 상위에서 ProxyProvider0<T> 위젯으로 생성 및 update 하고,
+/// child 에서 Provider.of<T>() 로 접근하여 사용할 수 있게 함.
 class Translations {
   final int _value;
 
@@ -33,13 +41,20 @@ class _ProxyProvUpdateState extends State<ProxyProvUpdate> {
         title: const Text('Why ProxyProvider Update'),
       ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const ShowTransrations(),
-            const SizedBox(height: 20),
-            IncreasedButton(increment: increment),
-          ],
+        // ProxyProvider0<T> 을 사용하여
+        // 매번 대상 data 가 변할 때마다 새로운 instance 를 생성해서
+        // 그것으로 update 하게 함.
+        // 자동으로 dispose 시킴.
+        child: ProxyProvider0<Translations>(
+          update: (_, __) => Translations(counter),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const ShowTransrations(),
+              const SizedBox(height: 20),
+              IncreasedButton(increment: increment),
+            ],
+          ),
         ),
       ),
     );
@@ -51,9 +66,11 @@ class ShowTransrations extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Text(
-      'You clicked 0 times!',
-      style: TextStyle(fontSize: 28.0),
+    // Provider.of<T>(context) 를 사용하여 대상 instance 에 접근
+    final title = Provider.of<Translations>(context).title;
+    return Text(
+      title,
+      style: const TextStyle(fontSize: 28.0),
     );
   }
 }
