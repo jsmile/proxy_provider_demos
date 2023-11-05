@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 
 /// ChangeNotifierProvider<T> & ChangeNotifierProxyProvider<T, R>
 ///
-/// Notifier 와 그것을 사용( 의존 )하는 또 다른 Notifier 를 만들고
+/// ChangeNotifier 와 그것을 사용( 의존 )하는 또 다른 ChangeNotifier 를 만들고
 /// 그 두개를 연결하기 위해서 ChangeNotifierProxyProvider 사용.
 
 // 변화 관찰의 대상이 되는 ChangeNotifier 클래스

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:proxy_provider_demos/src/pages/chgnotiprov_chgnotiproxyprov.dart';
 
 /// Multiprovider
 /// ProxyProvider0<T> & ProxyProvider<T, R>
