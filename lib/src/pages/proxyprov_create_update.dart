@@ -1,10 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class Translations {
-  final int _value;
+/// ProxyProvider create & update
+///
 
-  Translations(this._value);
+// ShowTranslation 에서 의존하는 class ( data class )로서
+// update 시 값이 변경될 있도록 property 에서 final 을 제거함.
+class Translations {
+  late int _value;
+
+  void update(int newValue) {
+    _value = newValue;
+    print('*** _value: $_value');
+  }
 
   String get title => 'You clicked $_value times!';
 }
@@ -33,13 +41,21 @@ class _ProxyProvCreateUpdateState extends State<ProxyProvCreateUpdate> {
         title: const Text('ProxyProvider Create & Update'),
       ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const ShowTransrations(),
-            const SizedBox(height: 20),
-            IncreasedButton(increment: increment),
-          ],
+        child: ProxyProvider0<Translations>(
+          create: (_) => Translations(), // 사용할 의존데이터 생성
+          // 생성한 것을 건네주고 update 시 호출
+          update: (_, Translations? translations) {
+            translations!.update(counter);
+            return translations;
+          },
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const ShowTransrations(),
+              const SizedBox(height: 20),
+              IncreasedButton(increment: increment),
+            ],
+          ),
         ),
       ),
     );
@@ -51,9 +67,10 @@ class ShowTransrations extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Text(
-      'You clicked 0 times!',
-      style: TextStyle(fontSize: 28.0),
+    final title = context.watch<Translations>().title;
+    return Text(
+      title,
+      style: const TextStyle(fontSize: 28.0),
     );
   }
 }
