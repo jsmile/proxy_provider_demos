@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-/// ChangeNotifierProxyProvider
+/// ChangeNotifierProvider<T> & ChangeNotifierProxyProvider<T, R>
 ///
 /// Notifier 와 그것을 사용( 의존 )하는 또 다른 Notifier 를 만들고
 /// 그 두개를 연결하기 위해서 ChangeNotifierProxyProvider 사용.
@@ -39,15 +39,6 @@ class ChgnotiprovChgnotiproxyprov extends StatefulWidget {
 
 class _ChgnotiprovChgnotiproxyprovState
     extends State<ChgnotiprovChgnotiproxyprov> {
-  int counter = 0;
-
-  void increment() {
-    setState(() {
-      counter++;
-      print('*** counter: $counter');
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -71,7 +62,7 @@ class _ChgnotiprovChgnotiproxyprovState
                 Counter counter, // 의존 대상
                 Translations? translations, // 사용 대상
               ) {
-                translations!.increment(counter);
+                translations!.increment(counter); // 일단 생성된 Result 재사용
                 return translations;
               },
             ),
