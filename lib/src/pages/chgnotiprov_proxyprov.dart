@@ -42,8 +42,13 @@ class _ChgNotiProvProxyProvState extends State<ChgNotiProvProxyProv> {
       body: Center(
         child: MultiProvider(
           providers: [
+<<<<<<< HEAD
             ChangeNotifierProvider<Counter>(create: (_) => Counter()),
             ProxyProvider<Counter, Translations>(
+=======
+            ChangeNotifierProvider(create: (_) => Counter()),
+            ProxyProvider(
+>>>>>>> b0dba1cd3c4afaca96902a8ffbd26ae45f1310f3
               update: (_, Counter counter, Translations? translations) {
                 // 생성자를 직접 호출하여 result 를 사용하지 않음
                 return Translations(counter.counter); // 매번 새로운 Translations 생성
