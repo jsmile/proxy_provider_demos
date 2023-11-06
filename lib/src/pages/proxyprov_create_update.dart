@@ -51,7 +51,8 @@ class _ProxyProvCreateUpdateState extends State<ProxyProvCreateUpdate> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const ShowTransrations(),
+              // ignore: prefer_const_constructors
+              ShowTransrations(),
               const SizedBox(height: 20),
               IncreasedButton(increment: increment),
             ],
